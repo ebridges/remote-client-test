@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Remote Client Test</string>
+    <string name="lbl_startchat">Enter hostname and portnumber, click \'Connect\'</string>
+    <string name="lbl_hostname">Hostname</string>
+    <string name="lbl_portnum">Port Num</string>
+    <string name="ctl_hostname_hint">host…</string>
+    <string name="ctl_portnum_hint">port…</string>
+    <string name="ctl_startchat">Connect</string>
+    <string name="lbl_sendbutton">Enter mesg, click \'Send\'</string>
+    <string name="lbl_sendbutton_hint">message…</string>
+    <string name="ctl_sendbutton">Send</string>
+    <string name="ctl_hostname_def">bpcreates.com</string>
+    <string name="ctl_portnum_def">10005</string>
+    <string name="ctl_status_field_hint">Status Area</string>
+</resources>

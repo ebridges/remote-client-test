@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <TableRow>
+        <TextView
+                android:text="@string/lbl_startchat"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="2dip"/>
+
+    </TableRow>
+    <TableRow>
+        <Button
+                android:id="@+id/ctl_startchat_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ctl_startchat"
+                android:layout_marginLeft="5dip"
+                android:onClick="onStartChatButtonClicked"/>
+        <EditText
+                android:id="@+id/ctl_host_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/ctl_hostname_hint"
+                android:text="@string/ctl_hostname_def"
+                android:ems="10"/>
+        <EditText
+                android:id="@+id/ctl_port_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/ctl_portnum_hint"
+                android:text="@string/ctl_portnum_def"
+                android:ems="10"/>
+
+    </TableRow>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#aaaaaa"/>
+
+    <TableRow>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_sendbutton"
+                android:layout_span="3"
+                android:layout_marginTop="2dip"
+                android:layout_marginLeft="5dip"/>
+
+    </TableRow>
+    <TableRow>
+        <Button
+                android:id="@+id/ctl_submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ctl_sendbutton"
+                android:layout_marginLeft="20dip"
+                android:onClick="onSubmitButtonClicked"/>
+        <EditText
+                android:id="@+id/ctl_mesg_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lbl_sendbutton_hint"
+                android:layout_span="2"
+                android:ems="10"/>
+    </TableRow>
+
+    <TableRow>
+        <EditText
+                android:id="@+id/ctl_response_area"
+                android:layout_width="fill_parent"
+                android:layout_height="160dip"
+                android:layout_marginLeft="20dip"
+                android:layout_span="3"
+                android:layout_marginTop="2dip"
+                android:inputType="textMultiLine"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+                android:id="@+id/ctl_status_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/ctl_status_field_hint"
+                android:layout_span="3"
+                android:layout_marginLeft="5dip"
+                android:clickable="false"/>
+    </TableRow>
+
+</TableLayout>
