@@ -25,6 +25,7 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
   public void onStartChatButtonClicked(View view) {
     String host = getHostname();
     Integer port = getPortNumber();
+    this.postStatusMessage(format("opening connection to %s:%d...", host, port));
     this.remoteClientAdapter = new RemoteClientAdapter(this, host, port);
     this.remoteClientAdapter.start();
     this.enableNewMessages();
@@ -34,14 +35,15 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
     if(this.remoteClientAdapter.isOpen()) {
       String message = getRequest();
       if(null != message) {
+        this.postStatusMessage("sending message to server.");
         this.remoteClientAdapter.submitMessage(message);
       } else {
         Log.i(TAG, "no message entered!");
-        updateStatus("Message cannot be empty.");
+        this.postStatusMessage("Message cannot be empty.");
       }
     } else {
       Log.w(TAG, "no active connection");
-      updateStatus("Not connected!");
+      this.postStatusMessage("Not connected!");
     }
   }
 
@@ -85,14 +87,6 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
       return Integer.valueOf(port);
     } else {
       return Constants.DEFAULT_PORT;
-    }
-  }
-
-  private void updateStatus(String mesg) {
-    Log.d(TAG, "updateStatus() called.");
-    if (notEmpty(mesg)) {
-      TextView statusArea = (TextView) findViewById(R.id.ctl_status_area);
-      statusArea.setText(mesg);
     }
   }
 
@@ -146,6 +140,7 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
   public void onResume() {
     Log.d(TAG, "onResume() called.");
     super.onResume();
+    this.postStatusMessage("");
     disableNewMessages();
   }
 
@@ -154,6 +149,10 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
     Log.d(TAG, "onPause() called.");
     super.onPause();
     disableNewMessages();
+    if (null != this.remoteClientAdapter) {
+      this.remoteClientAdapter.shutdown();
+      this.remoteClientAdapter = null;
+    }
   }
 
   @Override
@@ -167,18 +166,15 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
   public void onDestroy() {
     Log.d(TAG, "onDestroy() called");
     super.onDestroy();
-    if (null != this.remoteClientAdapter) {
-      this.remoteClientAdapter.shutdown();
-    }
   }
 
-  /* here */
   @Override
   public void onMessage(String message) {
     if(notEmpty(message)) {
       EditText responseArea = (EditText) findViewById(R.id.ctl_response_area);
       ResponseUpdateRunnable responseUpdate = new ResponseUpdateRunnable(responseArea, message);
       this.responseHandler.post(responseUpdate);
+      postStatusMessage("received message from server.");
     } else {
       postStatusMessage("received an empty message");
     }
@@ -195,7 +191,7 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
   public void onClose(String hostname, Integer portnumber) {
     String message = format("Closed connection to %s:%s", hostname, portnumber);
     Log.i(TAG, message);
-    postStatusMessage(message);
+    postStatusMessage(message); // will probably never get shown...
   }
 
   @Override
@@ -204,7 +200,6 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
     Log.e(TAG, message, e);
     postStatusMessage(message);
   }
-  /* to here */
 
   private void postStatusMessage(String message){
     TextView statusArea = (TextView) findViewById(R.id.ctl_status_area);

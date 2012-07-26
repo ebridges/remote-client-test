@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
     <TableRow>
@@ -66,26 +66,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lbl_sendbutton_hint"
-                android:layout_span="2"
-                android:ems="10"/>
+                android:layout_span="2"/>
     </TableRow>
 
     <TableRow>
         <EditText
                 android:id="@+id/ctl_response_area"
                 android:layout_width="fill_parent"
-                android:layout_height="160dip"
+                android:layout_height="150dip"
                 android:layout_marginLeft="20dip"
                 android:layout_span="3"
                 android:layout_marginTop="2dip"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"/>
     </TableRow>
 
     <TableRow>
         <TextView
                 android:id="@+id/ctl_status_area"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="80dip"
                 android:hint="@string/ctl_status_field_hint"
                 android:layout_span="3"
                 android:layout_marginLeft="5dip"
