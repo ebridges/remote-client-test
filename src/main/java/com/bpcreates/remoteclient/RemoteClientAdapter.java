@@ -1,21 +1,20 @@
 package com.bpcreates.remoteclient;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RemoteClientAdapter extends Thread {
   private final String hostname;
   private final Integer portnumber;
   private final RemoteClient remoteClient;
   private final RemoteClientCallback remoteClientCallback;
-  private final AtomicBoolean open;
+  private boolean open;
 
   public RemoteClientAdapter(RemoteClientCallback callback, String hostname, Integer portnumber) {
     this.remoteClientCallback = callback;
     this.remoteClient = RemoteClientFactory.i(hostname, portnumber);
     this.hostname = hostname;
     this.portnumber = portnumber;
-    this.open = new AtomicBoolean(false);
+    this.open = false;
   }
 
   @Override
@@ -23,7 +22,7 @@ public class RemoteClientAdapter extends Thread {
     try {
         this.remoteClient.open();
         this.remoteClientCallback.onOpen(hostname, portnumber);
-        this.open.set(true);
+        this.open = true;
     } catch (IOException e) {
       this.remoteClientCallback.onError("error opening remote client", e);
     }
@@ -43,7 +42,7 @@ public class RemoteClientAdapter extends Thread {
     try {
       synchronized (this.remoteClient) {
         this.remoteClient.close();
-        this.open.set(false);
+        this.open = false;
         this.remoteClientCallback.onClose(hostname, portnumber);
       }
     } catch (IOException e) {
@@ -52,6 +51,6 @@ public class RemoteClientAdapter extends Thread {
   }
 
   public boolean isOpen() {
-    return this.open.get();
+    return this.open;
   }
 }

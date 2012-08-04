@@ -22,7 +22,7 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
   private final Handler responseHandler = new Handler();
   private final Handler statusHandler = new Handler();
 
-  public void onStartChatButtonClicked(View view) {
+  public void onStartChatButtonClicked(@SuppressWarnings("unused") View view) {
     String host = getHostname();
     Integer port = getPortNumber();
     this.postStatusMessage(format("opening connection to %s:%d...", host, port));
@@ -31,7 +31,7 @@ public class RemoteClientTestActivity extends Activity implements RemoteClientCa
     this.enableNewMessages();
   }
 
-  public void onSubmitButtonClicked(View view) {
+  public void onSubmitButtonClicked(@SuppressWarnings("unused") View view) {
     if(this.remoteClientAdapter.isOpen()) {
       String message = getRequest();
       if(null != message) {
